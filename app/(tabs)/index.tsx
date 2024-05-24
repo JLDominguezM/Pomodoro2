@@ -9,7 +9,8 @@ const colors = ["#F7DC6F", "#A2D9CE", "#D7BDE2"];
 export default function HomeScreen() {
   const [isRunning, setIsRunning] = useState(false);
   const [time, setTime] = useState(25 * 60);
-  const [currentTime, setCurrentTime] = useState("Normal" || "Short" || "Break");
+  const [currentTime, setCurrentTime] = useState("Normal" || "Short" || "Long");
+  const [initialTime, setInitialTime] = useState(25 * 60 || 5 * 60 || 15 * 60);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -18,15 +19,40 @@ export default function HomeScreen() {
     if (isActive) {
       interval = setInterval(() => {
         setTime((time - 1));
-      }, 1000);
+      }, 0.1);
     } else {
       clearInterval(interval);
     }
 
-    if (time === 0) {
+    /* if (currentTime === "Normal" && time === 0) {
       setIsActive(false);
       setIsRunning(prev => !prev);
       setTime(isRunning ? 300 : 1500);
+      setCurrentTime("Normal");
+    }
+    if (currentTime === "Short" && time === 0) {
+      setIsActive(false);
+      setIsRunning(prev => !prev);
+      setTime(isRunning ? 300 : 1500);
+      setCurrentTime("Short");
+    }
+    if (currentTime === "Long" && time === 0) {
+      setIsActive(false);
+      setIsRunning(prev => !prev);
+      setTime(isRunning ? 300 : 15*60);
+      setCurrentTime("Long");
+    } */
+
+    if (time === 0) {
+      setIsActive(false);
+      setIsRunning(prev => !prev);
+      if (currentTime === "Normal") {
+        setTime(25 * 60);	
+      } else if (currentTime === "Short") {
+        setTime(5 * 60);
+      } else {
+        setTime(15 * 60);
+      }
     }
 
     return () => clearInterval(interval);
