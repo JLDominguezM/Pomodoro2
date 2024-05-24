@@ -19,7 +19,7 @@ export default function HomeScreen() {
     if (isActive) {
       interval = setInterval(() => {
         setTime((time - 1));
-      }, 0.1);
+      }, 1000);
     } else {
       clearInterval(interval);
     }
